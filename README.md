@@ -27,7 +27,7 @@ Claude Code loads all your skills, agents, and rules in every session. When work
 
 ## ⚙️ How It Works
 
-Each project declares its domain in a `.claudeenv` file. When you run `claude`, `claudeenv` symlinks the matching profile's skills, agents, and rules into `.claude/` — and removes the previous ones.
+Each project declares its domain in a `.claudeenv` file. With the one-time shell setup below in place, `claudeenv` symlinks the matching profile's skills, agents, and rules into `.claude/` — and removes the previous ones — automatically before every `claude` session. (Skipped that step? Run `claudeenv load` directly to do the same thing on demand.)
 
 ```ini
 # .claudeenv
@@ -111,6 +111,41 @@ source ~/.zshrc   # or ~/.bashrc
 
 ---
 
+## 🧪 Try It
+
+See `claudeenv` symlink real profiles into `.claude/` — no setup beyond cloning two repos:
+
+```bash
+# profiles repo: golang + kubernetes project profiles, a "programming" global profile
+git clone https://github.com/nemethk/claudeenv-demo-profiles.git ~/claudeenv-demo-profiles
+
+# project repo — .claudeenv already declares [project] golang kubernetes / [global] programming
+git clone https://github.com/nemethk/claudeenv-demo-project.git ~/claudeenv-demo-project
+
+export CLAUDEENV_DIR_PROJECT=~/claudeenv-demo-profiles/claude-project
+export CLAUDEENV_DIR_GLOBAL=~/claudeenv-demo-profiles/claude-global
+
+cd ~/claudeenv-demo-project
+claudeenv load
+```
+
+```
+claudeenv: loaded project profile "golang"
+claudeenv: loaded project profile "kubernetes"
+claudeenv: loaded global profile "programming"
+```
+
+Inspect `.claude/skills/`, `.claude/agents/`, `.claude/rules/` — they're now symlinks into the cloned profiles.
+
+Want this to happen automatically before every `claude` session instead of running `claudeenv load` by hand? Add to `~/.bashrc` or `~/.zshrc`:
+
+```bash
+# Claude Code - Claudeenv
+eval "$(claudeenv init)"
+```
+
+---
+
 ## 🛠️ Commands
 
 ### Project — scoped to current directory
@@ -175,6 +210,8 @@ finance
 | `[global.dir]` in local | overrides `CLAUDEENV_DIR_GLOBAL` for this project |
 | `[project]` in local | additive only — `+` prefix required |
 
+> **Heads up:** `claudeenv project use <profile>` rewrites `.claudeenv` from scratch and drops any existing `[global]` line — if your committed file declares a team-default global (like the example above), use `claudeenv project add <profile>` to add further project profiles without losing it.
+
 ---
 
 ## ⚡ Configuration
@@ -230,6 +267,12 @@ Commit `.claudeenv` — it declares the domain for the team and CI.
 | pyenv | `.python-version` | Python version per project |
 | goenv | `.go-version` | Go version per project |
 | claudeenv | `.claudeenv` | Claude Code profile per project |
+
+---
+
+## 🤝 Contributing
+
+Bug fixes, new features, and documentation improvements are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 

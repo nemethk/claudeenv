@@ -288,7 +288,7 @@ claudeenv project list
 | Clone location | `~/work/acme/claude-profiles` | `~/repos/claude-profiles` | `~/claude-profiles` |
 | Global profile | `engineering` | `engineering` | `finance` |
 | In payment-service | golang + kubernetes | golang + kubernetes | — |
-| In etf-dashboard | etf | etf + finance* | etf + finance |
+| In etf-dashboard | etf + engineering | etf + finance* | etf + finance |
 | Skills visible | project + engineering | project + engineering* | project + finance |
 
 *Bob's `.claudeenv.local` in etf-dashboard overrides his global to `finance`.
@@ -297,9 +297,10 @@ claudeenv project list
 
 - Clone the profiles repo anywhere — set `CLAUDEENV_DIR_*` once per machine and forget it
 - `.claudeenv` committed to the repo means every teammate gets the right tools automatically on clone
-- Global profile is personal and machine-specific — set it with `claudeenv global use`, never commit it
+- In this team's setup, the global profile stays personal and machine-specific — set with `claudeenv global use`, never committed to `.claudeenv` (a team can also declare a shared `[global]` default directly in the committed file — see the README's `.claudeenv` File Format)
 - `.claudeenv.local` is the escape hatch for personal overrides without affecting the team
 - Profiles are the source of truth — update once, `git pull` everywhere
+- Want to see this pattern with real repos instead of Alice/Bob/Carol? Clone the demo project + profiles repos in [🧪 Try It](README.md#-try-it)
 
 ---
 

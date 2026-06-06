@@ -84,28 +84,18 @@ eval "$(claudeenv init --hook)"
 
 ---
 
-## Step 4: Clone Your Profiles Repo
+## Step 4: Set Profile Locations
 
-Clone the profiles repo **wherever you prefer** on your machine:
+Decide where your profiles will live. The defaults work out of the box:
 
-```bash
-git clone git@github.com:you/my-claude-profiles.git ~/my-claude-profiles
-```
+| | Default |
+|-|---------|
+| Global profiles | `~/claudeenv/claude-global/` |
+| Project profiles | `~/claudeenv/claude-project/` |
 
-No forced location — you decide where it lives.
+Happy with these? Skip ahead to Step 5.
 
-Don't have a profiles repo yet? Scaffold your first profile into the default location and set it up later:
-
-```bash
-claudeenv new golang
-# creates ~/claudeenv/claude-project/golang/skills/, agents/, rules/
-```
-
----
-
-## Step 5: Set Profile Locations
-
-Tell `claudeenv` where your profiles are by adding env vars to your shell config (`~/.zshrc` or `~/.bashrc`):
+To use a different location instead, add env vars to your shell config (`~/.zshrc` or `~/.bashrc`):
 
 ```bash
 export CLAUDEENV_DIR_GLOBAL=~/my-claude-profiles/claude-global
@@ -128,12 +118,22 @@ Then reload:
 source ~/.zshrc   # or ~/.bashrc
 ```
 
-Default locations if env vars are not set:
+---
 
-| | Default |
-|-|---------|
-| Global profiles | `~/claudeenv/claude-global/` |
-| Project profiles | `~/claudeenv/claude-project/` |
+## Step 5: Get Your Profiles
+
+Now populate wherever `claudeenv` is looking — the location from Step 4, or the default if you kept it. Clone an existing repo into it, or scaffold a fresh profile; `claudeenv new` always writes into `CLAUDEENV_DIR_PROJECT`, so either path lands in the right place:
+
+```bash
+git clone git@github.com:you/my-claude-profiles.git ~/my-claude-profiles
+```
+
+Don't have a profiles repo yet? Scaffold your first profile:
+
+```bash
+claudeenv new golang
+# creates <profiles-dir>/golang/skills/, agents/, rules/
+```
 
 ---
 
