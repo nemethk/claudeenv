@@ -45,6 +45,5 @@ Thumbs.db
 .env.local
 
 # Go
-go.sum
 go.work
 vendor/
