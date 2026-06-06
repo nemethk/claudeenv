@@ -29,6 +29,7 @@ brews:
   - repository:
       owner: nemethk
       name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
     homepage: https://github.com/nemethk/claudeenv
     description: Claude Code environment manager — activate domain-specific skills, agents, and rules per project
 
