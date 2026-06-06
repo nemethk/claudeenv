@@ -135,12 +135,17 @@ func parseFile(path string, cfg *Config, local bool) error {
 	return scanner.Err()
 }
 
-// WriteProjectProfile writes a new .claudeenv with only [project] set.
+// WriteProjectProfile replaces [project] in .claudeenv with a single profile,
+// preserving any existing [global] (e.g. a committed team-default).
 func WriteProjectProfile(p string) error {
 	if err := ValidateProfileName(p); err != nil {
 		return err
 	}
-	return writeClaudeEnv([]string{p}, "")
+	cfg := &Config{}
+	if err := parseFile(".claudeenv", cfg, false); err != nil && !errors.Is(err, fs.ErrNotExist) {
+		return err
+	}
+	return writeClaudeEnv([]string{p}, cfg.GlobalProfile)
 }
 
 // AddProjectProfile appends a profile to [project] in .claudeenv (no-op if already present).

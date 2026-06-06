@@ -270,6 +270,26 @@ func TestWriteProjectProfile(t *testing.T) {
 	}
 }
 
+func TestWriteProjectProfile_PreservesExistingGlobal(t *testing.T) {
+	chdir(t)
+	writeFile(t, ".claudeenv", "[project]\ngolang\n\n[global]\nprogramming\n")
+
+	if err := WriteProjectProfile("kubernetes"); err != nil {
+		t.Fatal(err)
+	}
+
+	cfg, err := Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(cfg.ProjectProfiles) != 1 || cfg.ProjectProfiles[0] != "kubernetes" {
+		t.Errorf("expected project replaced with kubernetes, got %v", cfg.ProjectProfiles)
+	}
+	if cfg.GlobalProfile != "programming" {
+		t.Errorf("expected existing [global] preserved as %q, got %q", "programming", cfg.GlobalProfile)
+	}
+}
+
 func TestAddProjectProfile(t *testing.T) {
 	chdir(t)
 	writeFile(t, ".claudeenv", "[project]\ngolang\n")
