@@ -30,8 +30,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### 🔮 Future (Planned)
 - Windows support (currently Linux/macOS only)
-- Profile validation and linting
-- Profile dependency management
 
 ---
 

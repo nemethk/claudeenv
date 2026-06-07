@@ -157,8 +157,6 @@ These feed into automatic release notes — keep them clear and descriptive.
 These are features planned for future releases:
 
 - **Windows support** — currently Linux and macOS only
-- **Profile validation** — lint profiles for common issues
-- **Profile dependencies** — declare and manage profile dependencies
 
 See [CHANGELOG.md](CHANGELOG.md) for the full roadmap.
 
