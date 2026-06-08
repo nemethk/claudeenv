@@ -2,7 +2,7 @@
 
 Releases are fully automated via goreleaser and GitHub Actions. Cutting a release is a single command.
 
-> Read the full release setup walkthrough: [Medium article](https://medium.com/@nemethk/TODO)
+> Read the full release setup walkthrough: [Medium article](https://medium.com/@nemethk/claudeenv-a-pyenv-style-environment-manager-for-claude-code-acbc46fa7bd7)
 
 ---
 
